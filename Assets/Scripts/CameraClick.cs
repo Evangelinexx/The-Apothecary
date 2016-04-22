@@ -11,21 +11,20 @@ public class CameraClick : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Input.GetMouseButtonDown(0)) {
-            Debug.Log("X");
             RaycastHit hit;
 
             if(Physics.Raycast(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition), out hit, 50)) { 
-            
-                Debug.Log("Gonna");
                 Ingredient i = hit.transform.GetComponent<Ingredient>();
+                Book b = hit.transform.GetComponent<Book>();
 
-                if(i != null) {
-                    Debug.Log("Give it to ya");
+                if (i != null) {
                     Cauldron c = GameObject.FindObjectOfType<Cauldron>();
                     foreach (Ingredient.effect effect in i.effects) {
                         c.addProperty(effect.symptom, effect.value);
                     }
                     Debug.Log(GameObject.FindObjectOfType<Cauldron>().ToString());
+                }else if(b != null) {
+                    b.toggle();
                 }
             }
         }
