@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CameraClick : MonoBehaviour {
-
+    [SerializeField] Book book;
 	// Use this for initialization
 	void Start () {
 	
@@ -23,8 +23,12 @@ public class CameraClick : MonoBehaviour {
                         c.addProperty(effect.symptom, effect.value);
                     }
                     Debug.Log(GameObject.FindObjectOfType<Cauldron>().ToString());
-                }else if(b != null) {
+                } else if (b != null) {
                     b.toggle();
+                }else if(hit.transform.tag == "Right-arrow") {
+                    book.nextPage();
+                }else if(hit.transform.tag == "Left-arrow") {
+                    book.previousPage();
                 }
             }
         }
