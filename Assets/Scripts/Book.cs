@@ -13,14 +13,10 @@ public class Book : MonoBehaviour {
         foreach(GameObject page in pages) {
             page.GetComponent<Renderer>().enabled = false;
         }
-        GameObject[] lefts = GameObject.FindGameObjectsWithTag("Left-arrow");
-        GameObject[] rights = GameObject.FindGameObjectsWithTag("Right-arrow");
-        foreach(GameObject left in lefts) {
-            left.GetComponent<Collider>().enabled = false;
+        foreach(Collider c in GetComponentsInChildren<Collider>()) {
+            c.enabled = false;
         }
-        foreach(GameObject right in rights) {
-            right.GetComponent<Collider>().enabled = false;
-        }
+        GetComponent<Collider>().enabled = true;
 	}
 	
 	// Update is called once per frame
@@ -28,6 +24,7 @@ public class Book : MonoBehaviour {
 	
 	}
 
+    //toggle the book, open or closed
     public void toggle() {
         if (isOpen) {
             hidePage();
@@ -38,18 +35,26 @@ public class Book : MonoBehaviour {
         isOpen = !isOpen;
     }
 
+    //turn the page
     public void nextPage() {
         hidePage();
         currentPage++;
         showPage();
     }
 
+    //turn the page
     public void previousPage() {
         hidePage();
         currentPage--;
         showPage();
     }
 
+    //getter to find if the book is open
+    public bool bookOpen() {
+        return isOpen;
+    }
+
+    //show the current page and enable colliders
     private void showPage() {
         GameObject page = pages[currentPage];
         page.GetComponent<Renderer>().enabled = true;
@@ -58,15 +63,12 @@ public class Book : MonoBehaviour {
         }
     }
 
+    //hide the current page and disable colliders
     private void hidePage() {
         GameObject page = pages[currentPage];
         page.GetComponent<Renderer>().enabled = false;
         foreach (Collider c in page.GetComponentsInChildren<Collider>()) {
             c.enabled = false;
         }
-    }
-
-    public bool bookOpen() {
-        return isOpen;
     }
 }

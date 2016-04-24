@@ -2,11 +2,9 @@
 using System.Collections;
 
 public class Shelf : MonoBehaviour {
-    [SerializeField] GameObject[] ingredients;
-
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
@@ -14,15 +12,17 @@ public class Shelf : MonoBehaviour {
 	
 	}
 
+    //turn off all ingredient colliders on the shelf
     public void turnOffColliders() {
-        foreach(GameObject i in ingredients) {
-            i.GetComponent<Collider>().enabled = false;
+        foreach(Collider c in GetComponentsInChildren<Collider>()) {
+            c.enabled = false;
         }
     }
 
+    //turn on all ingredient colliders on the shelf
     public void turnOnColliders() {
-        foreach (GameObject i in ingredients) {
-            i.GetComponent<Collider>().enabled = true;
+        foreach (Collider c in GetComponentsInChildren<Collider>()) {
+            c.enabled = true;
         }
     }
 }

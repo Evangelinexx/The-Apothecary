@@ -2,11 +2,14 @@
 using System.Collections;
 
 public class CameraClick : MonoBehaviour {
-    [SerializeField] Book book;
-    [SerializeField] Shelf shelf;
+    private Book book;
+    private Shelf shelf;
+    private Cauldron cauldron;
 	// Use this for initialization
 	void Start () {
-	
+        book = FindObjectOfType<Book>();
+        shelf = FindObjectOfType<Shelf>();
+        cauldron = FindObjectOfType<Cauldron>();
 	}
 	
 	// Update is called once per frame
@@ -18,22 +21,21 @@ public class CameraClick : MonoBehaviour {
                 Ingredient i = hit.transform.GetComponent<Ingredient>();
                 Book b = hit.transform.GetComponent<Book>();
 
-                if (i != null) {
-                    Cauldron c = GameObject.FindObjectOfType<Cauldron>();
+                if (i != null) {//Clicked on an ingredient
                     foreach (Ingredient.effect effect in i.effects) {
-                        c.addProperty(effect.symptom, effect.value);
+                        cauldron.addProperty(effect.symptom, effect.value);
                     }
-                    Debug.Log(GameObject.FindObjectOfType<Cauldron>().ToString());
-                } else if (b != null) {
-                    b.toggle();
+                    Debug.Log(cauldron.ToString());//DEBUG STRING OUTPUT
+                } else if (b != null) {//clicked the book
+                    book.toggle();
                     if (book.bookOpen()) {
                         shelf.turnOffColliders();
                     } else {
                         shelf.turnOnColliders();
                     }
-                }else if(hit.transform.tag == "Right-arrow") {
+                }else if(hit.transform.tag == "Right-arrow") {//clicked a right arrow
                     book.nextPage();
-                }else if(hit.transform.tag == "Left-arrow") {
+                }else if(hit.transform.tag == "Left-arrow") {//clocked a left arrow
                     book.previousPage();
                 }
             }
