@@ -65,4 +65,8 @@ public class Book : MonoBehaviour {
             c.enabled = false;
         }
     }
+
+    public bool bookOpen() {
+        return isOpen;
+    }
 }

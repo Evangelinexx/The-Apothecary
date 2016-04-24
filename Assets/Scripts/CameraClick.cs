@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CameraClick : MonoBehaviour {
     [SerializeField] Book book;
+    [SerializeField] Shelf shelf;
 	// Use this for initialization
 	void Start () {
 	
@@ -25,6 +26,11 @@ public class CameraClick : MonoBehaviour {
                     Debug.Log(GameObject.FindObjectOfType<Cauldron>().ToString());
                 } else if (b != null) {
                     b.toggle();
+                    if (book.bookOpen()) {
+                        shelf.turnOffColliders();
+                    } else {
+                        shelf.turnOnColliders();
+                    }
                 }else if(hit.transform.tag == "Right-arrow") {
                     book.nextPage();
                 }else if(hit.transform.tag == "Left-arrow") {
