@@ -17,7 +17,6 @@ public class Cauldron : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
     //remove everything from the cauldron

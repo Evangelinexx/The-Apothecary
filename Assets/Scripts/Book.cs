@@ -13,10 +13,6 @@ public class Book : MonoBehaviour {
         foreach(GameObject page in pages) {
             page.GetComponent<Renderer>().enabled = false;
         }
-        foreach(Collider c in GetComponentsInChildren<Collider>()) {
-            c.enabled = false;
-        }
-        GetComponent<Collider>().enabled = true;
 	}
 	
 	// Update is called once per frame
@@ -24,28 +20,39 @@ public class Book : MonoBehaviour {
 	
 	}
 
-    //toggle the book, open or closed
+    //toggle the book, open or closed, enable/disable arrows
     public void toggle() {
         if (isOpen) {
             hidePage();
-        }else {
+            foreach (Collider c in GetComponentsInChildren<Collider>()) {
+                c.enabled = false;
+            }
+            GetComponent<Collider>().enabled = true;//book collider should always be enabled
+        } else {
             currentPage = 0;
             showPage();
+            foreach (Collider c in GetComponentsInChildren<Collider>()) {
+                c.enabled = true;
+            }
         }
         isOpen = !isOpen;
     }
 
-    //turn the page
+    //turn the page if there is a next page
     public void nextPage() {
         hidePage();
-        currentPage++;
+        if (currentPage + 1 < pages.Length) {
+            currentPage++;
+        }
         showPage();
     }
 
-    //turn the page
+    //turn the page if there is a previous page
     public void previousPage() {
         hidePage();
-        currentPage--;
+        if (currentPage - 1 >= 0) {
+            currentPage--;
+        }
         showPage();
     }
 
@@ -54,21 +61,15 @@ public class Book : MonoBehaviour {
         return isOpen;
     }
 
-    //show the current page and enable colliders
+    //show the current page
     private void showPage() {
         GameObject page = pages[currentPage];
         page.GetComponent<Renderer>().enabled = true;
-        foreach(Collider c in page.GetComponentsInChildren<Collider>()) {
-            c.enabled = true;
-        }
     }
 
-    //hide the current page and disable colliders
+    //hide the current page
     private void hidePage() {
         GameObject page = pages[currentPage];
         page.GetComponent<Renderer>().enabled = false;
-        foreach (Collider c in page.GetComponentsInChildren<Collider>()) {
-            c.enabled = false;
-        }
     }
 }
