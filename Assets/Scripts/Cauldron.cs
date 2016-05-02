@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 public class Cauldron : MonoBehaviour {
     public const int unlikely = 25;
